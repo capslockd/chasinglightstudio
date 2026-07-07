@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 500" role="img" aria-label="Chasing Light Studio banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fdfcfa"/>
+      <stop offset="1" stop-color="#f3ede3"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.38" r="0.55">
+      <stop offset="0" stop-color="#e9d9bc" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#e9d9bc" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c9ad7f"/>
+      <stop offset="1" stop-color="#a68956"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="500" fill="url(#bg)"/>
+  <rect width="1600" height="500" fill="url(#glow)"/>
+
+  <!-- faint long light rays across the banner -->
+  <g stroke="#c9ad7f" stroke-width="1" opacity="0.28" stroke-linecap="round">
+    <line x1="800" y1="190" x2="330" y2="60"/>
+    <line x1="800" y1="190" x2="240" y2="190"/>
+    <line x1="800" y1="190" x2="330" y2="330"/>
+    <line x1="800" y1="190" x2="1270" y2="60"/>
+    <line x1="800" y1="190" x2="1360" y2="190"/>
+    <line x1="800" y1="190" x2="1270" y2="330"/>
+  </g>
+
+  <!-- sun mark -->
+  <g transform="translate(800 150)" stroke="url(#gold)" fill="none" stroke-width="2.2" stroke-linecap="round">
+    <circle r="20"/>
+    <circle r="8.5" fill="url(#gold)" stroke="none" opacity="0.9"/>
+    <g stroke-width="1.8">
+      <line x1="0" y1="-29" x2="0" y2="-38"/>
+      <line x1="20.5" y1="-20.5" x2="26.9" y2="-26.9"/>
+      <line x1="29" y1="0" x2="38" y2="0"/>
+      <line x1="20.5" y1="20.5" x2="26.9" y2="26.9"/>
+      <line x1="0" y1="29" x2="0" y2="38"/>
+      <line x1="-20.5" y1="20.5" x2="-26.9" y2="26.9"/>
+      <line x1="-29" y1="0" x2="-38" y2="0"/>
+      <line x1="-20.5" y1="-20.5" x2="-26.9" y2="-26.9"/>
+    </g>
+  </g>
+
+  <text x="800" y="290" text-anchor="middle"
+        font-family="'Cormorant Garamond', Georgia, serif" font-size="58"
+        letter-spacing="14" fill="#3d3a36">CHASING LIGHT</text>
+  <text x="800" y="336" text-anchor="middle"
+        font-family="'Jost', 'Helvetica Neue', Arial, sans-serif" font-size="20"
+        letter-spacing="18" fill="#a68956">S T U D I O</text>
+
+  <line x1="700" y1="374" x2="900" y2="374" stroke="#c9ad7f" stroke-width="1"/>
+
+  <text x="800" y="412" text-anchor="middle"
+        font-family="'Jost', 'Helvetica Neue', Arial, sans-serif" font-size="15"
+        letter-spacing="6" fill="#8a857e">CHASING LIGHT, CAPTURING MOMENTS</text>
+</svg>

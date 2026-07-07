@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" role="img" aria-label="Chasing Light Studio logo">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c9ad7f"/>
+      <stop offset="1" stop-color="#a68956"/>
+    </linearGradient>
+  </defs>
+  <!-- Sun / aperture mark -->
+  <g transform="translate(160 38)" stroke="url(#gold)" fill="none" stroke-width="1.6" stroke-linecap="round">
+    <circle r="13"/>
+    <circle r="5.5" fill="url(#gold)" stroke="none" opacity="0.9"/>
+    <!-- rays -->
+    <g>
+      <line x1="0" y1="-19" x2="0" y2="-25"/>
+      <line x1="13.4" y1="-13.4" x2="17.7" y2="-17.7"/>
+      <line x1="19" y1="0" x2="25" y2="0"/>
+      <line x1="13.4" y1="13.4" x2="17.7" y2="17.7"/>
+      <line x1="0" y1="19" x2="0" y2="25"/>
+      <line x1="-13.4" y1="13.4" x2="-17.7" y2="17.7"/>
+      <line x1="-19" y1="0" x2="-25" y2="0"/>
+      <line x1="-13.4" y1="-13.4" x2="-17.7" y2="-17.7"/>
+    </g>
+  </g>
+  <!-- Wordmark -->
+  <text x="160" y="92" text-anchor="middle"
+        font-family="'Cormorant Garamond', Georgia, serif" font-size="24"
+        letter-spacing="4.5" fill="#3d3a36">CHASING LIGHT</text>
+  <text x="160" y="112" text-anchor="middle"
+        font-family="'Jost', 'Helvetica Neue', Arial, sans-serif" font-size="10"
+        letter-spacing="7" fill="#a68956">S T U D I O</text>
+</svg>
