@@ -192,16 +192,20 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Gallery ---------- */
 .gallery-intro { padding-bottom: 2rem; }
 .masonry {
-  columns: 4 260px;
-  column-gap: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
   padding: 0 10px 10px;
   max-width: 1500px;
   margin: 0 auto;
 }
+.masonry-col {
+  flex: 1;
+  min-width: 0;
+}
 .masonry a {
   display: block;
   margin-bottom: 10px;
-  break-inside: avoid;
   background: var(--bg-soft);
 }
 .masonry img {
@@ -211,6 +215,66 @@ a { color: inherit; text-decoration: none; }
 }
 .masonry img.loaded { opacity: 1; }
 .masonry a:hover img { filter: brightness(1.05); }
+
+/* ---------- Password gate ---------- */
+.gate {
+  position: fixed; inset: 0;
+  background: rgba(253, 252, 250, 0.97);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 200;
+  padding: 1.5rem;
+}
+.gate-box {
+  text-align: center;
+  max-width: 380px;
+  width: 100%;
+}
+.gate-box h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.gate-box p {
+  color: var(--text-light);
+  font-size: 0.92rem;
+  margin: 0.9rem 0 1.6rem;
+}
+.gate-box input {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--accent-soft);
+  background: #fff;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+  outline: none;
+}
+.gate-box input:focus { border-color: var(--accent); }
+.gate-box button {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.85rem;
+  border: 1px solid var(--accent);
+  background: none;
+  color: var(--accent);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+.gate-box button:hover { background: var(--accent); color: #fff; }
+.gate-error {
+  margin-top: 0.9rem;
+  min-height: 1.2em;
+  color: #b0563e;
+  font-size: 0.85rem;
+}
 
 /* ---------- Lightbox ---------- */
 .lightbox {

@@ -1,9 +1,52 @@
-/* Renders a masonry gallery from a JSON manifest and provides a lightbox. */
+/* Renders a masonry gallery from a JSON manifest, with optional password gate,
+   highlights mode, lazy loading and a lightbox. Photos are ordered by filename
+   and placed left-to-right into the currently shortest column, so reading order
+   follows the file order. */
 (async function () {
   const grid = document.getElementById("gallery");
   if (!grid) return;
   const slug = grid.dataset.slug;
 
+  // ---------- Password gate (client-side; keeps casual visitors out) ----------
+  const gateHash = grid.dataset.protect;
+  if (gateHash && sessionStorage.getItem(`gate-${slug}`) !== gateHash) {
+    const ok = await new Promise((resolve) => {
+      const gate = document.createElement("div");
+      gate.className = "gate";
+      gate.innerHTML = `
+        <div class="gate-box">
+          <h3>Private Gallery</h3>
+          <p>This album is password protected.<br>Please enter the password to view the photos.</p>
+          <form>
+            <input type="password" placeholder="Password" autocomplete="off" autofocus>
+            <button type="submit">Enter</button>
+          </form>
+          <div class="gate-error"></div>
+        </div>`;
+      document.body.appendChild(gate);
+      const input = gate.querySelector("input");
+      const err = gate.querySelector(".gate-error");
+      gate.querySelector("form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const buf = await crypto.subtle.digest("SHA-256",
+          new TextEncoder().encode(input.value));
+        const hex = [...new Uint8Array(buf)]
+          .map((b) => b.toString(16).padStart(2, "0")).join("");
+        if (hex === gateHash) {
+          sessionStorage.setItem(`gate-${slug}`, gateHash);
+          gate.remove();
+          resolve(true);
+        } else {
+          err.textContent = "Incorrect password — please try again.";
+          input.value = "";
+          input.focus();
+        }
+      });
+    });
+    if (!ok) return;
+  }
+
+  // ---------- Load manifest ----------
   const res = await fetch(`assets/data/${slug}.json`);
   let photos = await res.json();
   photos.sort((a, b) => a.n.localeCompare(b.n));
@@ -25,21 +68,7 @@
       `Showing all ${total} photos &mdash; <a href="${location.pathname}">view highlights</a>`;
   }
 
-  const frag = document.createDocumentFragment();
-  photos.forEach((p, i) => {
-    const a = document.createElement("a");
-    a.href = `assets/img/${slug}/full/${p.n}.webp`;
-    a.dataset.index = i;
-    const img = document.createElement("img");
-    img.dataset.src = `assets/img/${slug}/thumbs/${p.n}.webp`;
-    img.alt = "";
-    img.style.aspectRatio = `${p.w} / ${p.h}`;
-    a.appendChild(img);
-    frag.appendChild(a);
-  });
-  grid.appendChild(frag);
-
-  // Lazy loading
+  // ---------- Masonry: shortest-column placement keeps filename order ----------
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (!e.isIntersecting) return;
@@ -49,9 +78,50 @@
       io.unobserve(img);
     });
   }, { rootMargin: "400px" });
-  grid.querySelectorAll("img").forEach((img) => io.observe(img));
 
-  // Lightbox
+  function columnCount() {
+    return Math.max(1, Math.min(4, Math.floor(grid.clientWidth / 280)));
+  }
+
+  let currentCols = 0;
+  function build() {
+    const n = columnCount();
+    if (n === currentCols) return;
+    currentCols = n;
+    io.disconnect();
+    grid.innerHTML = "";
+    const cols = [];
+    const heights = [];
+    for (let c = 0; c < n; c++) {
+      const col = document.createElement("div");
+      col.className = "masonry-col";
+      grid.appendChild(col);
+      cols.push(col);
+      heights.push(0);
+    }
+    photos.forEach((p, i) => {
+      const c = heights.indexOf(Math.min(...heights));
+      const a = document.createElement("a");
+      a.href = `assets/img/${slug}/full/${p.n}.webp`;
+      a.dataset.index = i;
+      const img = document.createElement("img");
+      img.dataset.src = `assets/img/${slug}/thumbs/${p.n}.webp`;
+      img.alt = "";
+      img.style.aspectRatio = `${p.w} / ${p.h}`;
+      a.appendChild(img);
+      cols[c].appendChild(a);
+      heights[c] += p.h / p.w;
+      io.observe(img);
+    });
+  }
+  build();
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(build, 150);
+  });
+
+  // ---------- Lightbox ----------
   const lb = document.createElement("div");
   lb.className = "lightbox";
   lb.innerHTML = `
