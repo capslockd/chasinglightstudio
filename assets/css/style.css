@@ -113,6 +113,15 @@ a { color: inherit; text-decoration: none; }
   to   { transform: scaleY(0.35); }
 }
 
+.hero-banner-frame {
+  display: block;
+  width: 100%;
+  max-width: 1600px;
+  aspect-ratio: 40/19;
+  margin: 0 auto;
+  border: 0;
+  overflow: hidden;
+}
 .hero-banner {
   width: 100%;
   max-width: 1600px;
@@ -535,8 +544,8 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 18%;
-  transform: scale(1.05) rotate(4deg);
+  object-position: 0% -2%;
+  transform: translateX(4%) scale(1) rotate(4deg);
 }
 .gallery-toggle {
   margin-top: 1.4rem;

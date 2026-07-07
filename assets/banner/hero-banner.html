@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+      50%      { opacity: 1; transform: translate(-50%, -50%) scale(1.06); }
+    }
+    @keyframes gradientShift {
+      0%   { background-position: 0% 0; }
+      100% { background-position: 200% 0; }
+    }
+    @keyframes raysBreathe {
+      0%, 100% { opacity: 0.18; }
+      50%      { opacity: 0.38; }
+    }
+    @keyframes markSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes moteDrift {
+      0%   { transform: translateY(0) scale(0.6); opacity: 0; }
+      15%  { opacity: 0.8; }
+      50%  { transform: translateY(-34px) scale(1); opacity: 1; }
+      85%  { opacity: 0; }
+      100% { transform: translateY(-58px) scale(0.6); opacity: 0; }
+    }
+    @keyframes waveDrift {
+      0%, 100% { transform: translateX(0); }
+      50%      { transform: translateX(-2.5%); }
+    }
+    @keyframes flyAcross {
+      0%   { transform: translateX(0) translateY(0); }
+      25%  { transform: translateX(30vw) translateY(-14px); }
+      50%  { transform: translateX(60vw) translateY(6px); }
+      75%  { transform: translateX(90vw) translateY(-10px); }
+      100% { transform: translateX(120vw) translateY(0); }
+    }
+    @keyframes wingFlap {
+      from { transform: scaleY(1); }
+      to   { transform: scaleY(0.35); }
+    }
+  </style>
+</helmet>
+
+<div style="width:100%; max-width:1600px; aspect-ratio:40/19; margin:0 auto; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; font-family:'Jost', sans-serif; background:linear-gradient(180deg, #fdfcfa 0%, #f6efe3 55%, #eee3cf 100%);">
+
+  <!-- drifting horizontal warm gradient, moves left to right -->
+  <div style="position:absolute; inset:0; background-image:linear-gradient(90deg, rgba(227,200,147,0) 0%, rgba(220,188,125,0.6) 25%, rgba(227,200,147,0) 50%, rgba(220,188,125,0.6) 75%, rgba(227,200,147,0) 100%); background-size:200% 100%; animation:{{ gradientAnim }}; pointer-events:none;"></div>
+
+  <!-- soft sun glow behind the mark -->
+  <div style="position:absolute; left:50%; top:38%; width:44vw; max-width:680px; height:44vw; max-height:680px; border-radius:50%; background:radial-gradient(circle, rgba(240,220,180,0.9) 0%, rgba(236,217,182,0.35) 50%, rgba(236,217,182,0) 72%); animation:glowPulse 9s ease-in-out infinite;"></div>
+
+  <!-- rolling hill silhouettes (drift synced to gradient animation) -->
+  <div style="position:absolute; left:-5%; right:-5%; bottom:-7%; height:24%; border-radius:50% 50% 0 0 / 100% 100% 0 0; background:linear-gradient(180deg, #e3d3b7, #d9c6a4); opacity:0.7; animation:{{ hillAnimA }};"></div>
+  <div style="position:absolute; left:-8%; right:-8%; bottom:-10%; height:16%; border-radius:50% 50% 0 0 / 100% 100% 0 0; background:linear-gradient(180deg, #d3bd94, #c6ac7d); opacity:0.75; animation:{{ hillAnimB }};"></div>
+
+  <!-- birds gliding across, looping -->
+  <sc-for list="{{ birds }}" as="bird" hint-placeholder-count="0">
+    <div style="position:absolute; left:-8%; top:{{ bird.top }}; animation:flyAcross {{ bird.duration }} linear infinite; animation-delay:{{ bird.delay }}; opacity:0.55;">
+      <div style="position:relative; width:{{ bird.width }}; height:{{ bird.height }}; animation:wingFlap 0.85s ease-in-out infinite alternate; transform-origin:50% 20%;">
+        <div style="position:absolute; left:0; top:0; width:50%; aspect-ratio:1; border-radius:50%; border:2px solid transparent; border-top-color:#8a7554; transform:rotate(-6deg);"></div>
+        <div style="position:absolute; right:0; top:0; width:50%; aspect-ratio:1; border-radius:50%; border:2px solid transparent; border-top-color:#8a7554; transform:rotate(6deg);"></div>
+      </div>
+    </div>
+  </sc-for>
+
+  <!-- ambient drifting light motes -->
+  <div style="position:absolute; left:18%; bottom:30%; width:5px; height:5px; border-radius:50%; background:#c9ad7f; animation:moteDrift 11s ease-in-out infinite; animation-delay:0s;"></div>
+  <div style="position:absolute; left:28%; bottom:62%; width:4px; height:4px; border-radius:50%; background:#c9ad7f; animation:moteDrift 14s ease-in-out infinite; animation-delay:2.5s;"></div>
+  <div style="position:absolute; left:70%; bottom:24%; width:5px; height:5px; border-radius:50%; background:#c9ad7f; animation:moteDrift 16s ease-in-out infinite; animation-delay:5s;"></div>
+  <div style="position:absolute; left:82%; bottom:58%; width:4px; height:4px; border-radius:50%; background:#c9ad7f; animation:moteDrift 12.5s ease-in-out infinite; animation-delay:1.2s;"></div>
+  <div style="position:absolute; left:12%; bottom:70%; width:4px; height:4px; border-radius:50%; background:#c9ad7f; animation:moteDrift 15s ease-in-out infinite; animation-delay:7s;"></div>
+
+  <div style="position:relative; display:flex; flex-direction:column; align-items:center; gap:18px; animation:fadeUp 900ms ease-out both;">
+
+    <!-- sun mark: ring, filled core, 8 rays -->
+    <div style="position:relative; width:5.5vw; height:5.5vw; max-width:88px; max-height:88px; min-width:44px; min-height:44px; display:flex; align-items:center; justify-content:center;">
+      <!-- faint light streaks radiating from the sun mark -->
+      <div style="position:absolute; left:50%; top:50%; width:0; height:0; animation:raysBreathe 12s ease-in-out infinite;">
+        <div style="position:absolute; left:0; top:0; width:44vw; height:1px; background:linear-gradient(90deg, #c9ad7f, rgba(201,173,127,0)); transform-origin:left center; transform:rotate(0deg);"></div>
+        <div style="position:absolute; left:0; top:0; width:44vw; height:1px; background:linear-gradient(90deg, #c9ad7f, rgba(201,173,127,0)); transform-origin:left center; transform:rotate(-20deg);"></div>
+        <div style="position:absolute; left:0; top:0; width:44vw; height:1px; background:linear-gradient(90deg, #c9ad7f, rgba(201,173,127,0)); transform-origin:left center; transform:rotate(20deg);"></div>
+        <div style="position:absolute; left:0; top:0; width:44vw; height:1px; background:linear-gradient(90deg, #c9ad7f, rgba(201,173,127,0)); transform-origin:left center; transform:rotate(-65deg);"></div>
+        <div style="position:absolute; left:0; top:0; width:44vw; height:1px; background:linear-gradient(90deg, #c9ad7f, rgba(201,173,127,0)); transform-origin:left center; transform:rotate(180deg);"></div>
+        <div style="position:absolute; left:0; top:0; width:44vw; height:1px; background:linear-gradient(90deg, #c9ad7f, rgba(201,173,127,0)); transform-origin:left center; transform:rotate(160deg);"></div>
+        <div style="position:absolute; left:0; top:0; width:44vw; height:1px; background:linear-gradient(90deg, #c9ad7f, rgba(201,173,127,0)); transform-origin:left center; transform:rotate(200deg);"></div>
+        <div style="position:absolute; left:0; top:0; width:44vw; height:1px; background:linear-gradient(90deg, #c9ad7f, rgba(201,173,127,0)); transform-origin:left center; transform:rotate(245deg);"></div>
+      </div>
+      <div style="position:absolute; inset:0; animation:markSpin 60s linear infinite;">
+        <div style="position:absolute; inset:0; transform:rotate(0deg);"><div style="position:absolute; left:50%; top:0; width:2px; height:14%; margin-left:-1px; background:#b3945f; border-radius:2px;"></div></div>
+        <div style="position:absolute; inset:0; transform:rotate(45deg);"><div style="position:absolute; left:50%; top:0; width:2px; height:14%; margin-left:-1px; background:#b3945f; border-radius:2px;"></div></div>
+        <div style="position:absolute; inset:0; transform:rotate(90deg);"><div style="position:absolute; left:50%; top:0; width:2px; height:14%; margin-left:-1px; background:#b3945f; border-radius:2px;"></div></div>
+        <div style="position:absolute; inset:0; transform:rotate(135deg);"><div style="position:absolute; left:50%; top:0; width:2px; height:14%; margin-left:-1px; background:#b3945f; border-radius:2px;"></div></div>
+        <div style="position:absolute; inset:0; transform:rotate(180deg);"><div style="position:absolute; left:50%; top:0; width:2px; height:14%; margin-left:-1px; background:#b3945f; border-radius:2px;"></div></div>
+        <div style="position:absolute; inset:0; transform:rotate(225deg);"><div style="position:absolute; left:50%; top:0; width:2px; height:14%; margin-left:-1px; background:#b3945f; border-radius:2px;"></div></div>
+        <div style="position:absolute; inset:0; transform:rotate(270deg);"><div style="position:absolute; left:50%; top:0; width:2px; height:14%; margin-left:-1px; background:#b3945f; border-radius:2px;"></div></div>
+        <div style="position:absolute; inset:0; transform:rotate(315deg);"><div style="position:absolute; left:50%; top:0; width:2px; height:14%; margin-left:-1px; background:#b3945f; border-radius:2px;"></div></div>
+      </div>
+      <div style="position:absolute; width:58%; height:58%; border-radius:50%; border:2px solid #b3945f;"></div>
+      <div style="width:26%; height:26%; border-radius:50%; background:#b3945f; opacity:0.9;"></div>
+    </div>
+
+    <!-- wordmark -->
+    <div style="font-family:'Cormorant Garamond', serif; font-weight:400; font-size:clamp(28px, 6vw, 96px); line-height:1; color:#4a4238; letter-spacing:0.01em; text-align:center; white-space:nowrap;">
+      Chasing Light Studio
+    </div>
+
+    <!-- italic story line -->
+    <div style="font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:400; font-size:clamp(16px, 2.2vw, 34px); line-height:1; color:#4a4238; opacity:0.85; white-space:nowrap;">
+      Every moment tells a story
+    </div>
+
+    <!-- gold divider -->
+    <div style="width:13vw; max-width:220px; min-width:100px; height:1px; background:#b89b6e; margin-top:2px;"></div>
+
+    <!-- tagline -->
+    <div style="font-family:'Jost', sans-serif; font-weight:300; font-size:clamp(11px, 1.1vw, 17px); letter-spacing:0.42em; text-transform:uppercase; color:#8a7554; margin-top:2px; white-space:nowrap;">
+      Chasing Light, Capturing Moments
+    </div>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1600,&quot;height&quot;:760},&quot;showBirds&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Birds&quot;},&quot;birdCount&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5,&quot;min&quot;:1,&quot;max&quot;:10,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Birds&quot;},&quot;animateGradient&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Background&quot;},&quot;motionSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.25,&quot;max&quot;:3,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Background&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const speed = this.props.motionSpeed ?? 1;
+    const show = this.props.showBirds ?? true;
+    const count = show ? (this.props.birdCount ?? 5) : 0;
+    const animateGradient = this.props.animateGradient ?? true;
+
+    // deterministic per-bird variation
+    const birds = Array.from({ length: count }, (_, i) => {
+      const r1 = ((i * 37) % 10) / 10;   // 0..0.9
+      const r2 = ((i * 53) % 10) / 10;
+      const size = 16 + Math.round(r2 * 14);          // 16..30px wingspan
+      const duration = (26 + r1 * 14) / speed;        // 26..40s per crossing
+      return {
+        top: (8 + r1 * 26).toFixed(1) + '%',          // upper sky band
+        width: size + 'px',
+        height: Math.round(size * 0.4) + 'px',
+        duration: duration.toFixed(1) + 's',
+        delay: (-(i * duration) / count).toFixed(1) + 's', // spread mid-flight at load
+      };
+    });
+
+    const gradientAnim = animateGradient
+      ? 'gradientShift ' + (30 / speed).toFixed(1) + 's linear infinite'
+      : 'none';
+
+    // hills drift in sync with the gradient (same toggle + speed)
+    const hillAnimA = animateGradient
+      ? 'waveDrift ' + (30 / speed).toFixed(1) + 's ease-in-out infinite'
+      : 'none';
+    const hillAnimB = animateGradient
+      ? 'waveDrift ' + (30 / speed).toFixed(1) + 's ease-in-out infinite reverse'
+      : 'none';
+
+    return { birds, gradientAnim, hillAnimA, hillAnimB };
+  }
+}
+</script>
+</body>
+</html>
