@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 760" role="img" aria-label="Chasing Light Studio — every moment tells a story">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fdfcfa"></stop>
+      <stop offset="0.55" stop-color="#f6efe3"></stop>
+      <stop offset="1" stop-color="#eee3cf"></stop>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="0.5" cy="0.42" r="0.6">
+      <stop offset="0" stop-color="#f0dcb4" stop-opacity="0.9"></stop>
+      <stop offset="0.5" stop-color="#ecd9b6" stop-opacity="0.35"></stop>
+      <stop offset="1" stop-color="#ecd9b6" stop-opacity="0"></stop>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c9ad7f"></stop>
+      <stop offset="1" stop-color="#a68956"></stop>
+    </linearGradient>
+    <linearGradient id="hillA" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e3d3b7"></stop>
+      <stop offset="1" stop-color="#d9c6a4"></stop>
+    </linearGradient>
+    <linearGradient id="hillB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d3bd94"></stop>
+      <stop offset="1" stop-color="#c6ac7d"></stop>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="760" fill="url(#sky)"></rect>
+  <rect width="1600" height="760" fill="url(#sunGlow)"></rect>
+
+  
+  <g stroke="#c9ad7f" stroke-width="1.2" opacity="0.3" stroke-linecap="round">
+    <line x1="800" y1="300" x2="180" y2="90"></line>
+    <line x1="800" y1="300" x2="80" y2="300"></line>
+    <line x1="800" y1="300" x2="180" y2="510"></line>
+    <line x1="800" y1="300" x2="1420" y2="90"></line>
+    <line x1="800" y1="300" x2="1520" y2="300"></line>
+    <line x1="800" y1="300" x2="1420" y2="510"></line>
+    <line x1="800" y1="300" x2="500" y2="30"></line>
+    <line x1="800" y1="300" x2="1100" y2="30"></line>
+  </g>
+
+  
+  <g transform="translate(800 260)" stroke="url(#gold)" fill="none" stroke-width="2.6" stroke-linecap="round">
+    <circle r="26"></circle>
+    <circle r="11" fill="url(#gold)" stroke="none" opacity="0.9"></circle>
+    <g stroke-width="2.1">
+      <line x1="0" y1="-37" x2="0" y2="-49"></line>
+      <line x1="26.2" y1="-26.2" x2="34.6" y2="-34.6"></line>
+      <line x1="37" y1="0" x2="49" y2="0"></line>
+      <line x1="26.2" y1="26.2" x2="34.6" y2="34.6"></line>
+      <line x1="0" y1="37" x2="0" y2="49"></line>
+      <line x1="-26.2" y1="26.2" x2="-34.6" y2="34.6"></line>
+      <line x1="-37" y1="0" x2="-49" y2="0"></line>
+      <line x1="-26.2" y1="-26.2" x2="-34.6" y2="-34.6"></line>
+    </g>
+  </g>
+
+  
+  <path d="M0 620 Q 400 540 800 600 T 1600 580 V 760 H 0 Z" fill="url(#hillA)" opacity="0.7"></path>
+  <path d="M0 680 Q 450 610 900 665 T 1600 650 V 760 H 0 Z" fill="url(#hillB)" opacity="0.75"></path>
+
+  
+  <g stroke="#8a7554" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.55">
+    <path d="M 1120 170 q 9 -9 18 0 q 9 -9 18 0"></path>
+    <path d="M 1180 205 q 7 -7 14 0 q 7 -7 14 0"></path>
+    <path d="M 420 150 q 8 -8 16 0 q 8 -8 16 0"></path>
+  </g>
+
+  <text x="800" y="425" text-anchor="middle" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-size="64" font-style="italic" fill="#4a4238">Every moment tells a story</text>
+  <line x1="690" y1="465" x2="910" y2="465" stroke="#b89b6e" stroke-width="1"></line>
+  <text x="800" y="503" text-anchor="middle" font-family="&#39;Jost&#39;, &#39;Helvetica Neue&#39;, Arial, sans-serif" font-size="17" letter-spacing="7" fill="#8a7554">CHASING LIGHT, CAPTURING MOMENTS</text>
+</svg>
