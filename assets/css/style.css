@@ -356,12 +356,13 @@ a { color: inherit; text-decoration: none; }
 }
 .session-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(60,50,30,0.12); }
 .session-card .thumb {
-  aspect-ratio: 4/3;
+  aspect-ratio: 3/4;
   overflow: hidden;
 }
 .session-card .thumb img {
   width: 100%; height: 100%;
   object-fit: cover;
+  object-position: 50% 12%;
   transition: transform 0.5s;
 }
 .session-card:hover .thumb img { transform: scale(1.04); }
@@ -545,7 +546,7 @@ a { color: inherit; text-decoration: none; }
   height: 100%;
   object-fit: cover;
   object-position: 0% -2%;
-  transform: translateX(4%) scale(1) rotate(4deg);
+  transform: translateX(4%) scale(1.07) rotate(4deg);
 }
 .gallery-toggle {
   margin-top: 1.4rem;
