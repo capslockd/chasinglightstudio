@@ -5,7 +5,25 @@
   const slug = grid.dataset.slug;
 
   const res = await fetch(`assets/data/${slug}.json`);
-  const photos = await res.json();
+  let photos = await res.json();
+  photos.sort((a, b) => a.n.localeCompare(b.n));
+  const total = photos.length;
+
+  // Highlights mode: show a curated subset unless ?all is in the URL.
+  const showAll = new URLSearchParams(location.search).has("all");
+  const toggle = document.getElementById("gallery-toggle");
+  if (!showAll) {
+    try {
+      const hl = await (await fetch(`assets/data/${slug}-highlights.json`)).json();
+      const set = new Set(hl);
+      photos = photos.filter((p) => set.has(p.n));
+      if (toggle) toggle.innerHTML =
+        `Showing ${photos.length} highlights &mdash; <a href="?all">view all ${total} photos</a>`;
+    } catch (e) { /* no highlights file: show everything */ }
+  } else if (toggle) {
+    toggle.innerHTML =
+      `Showing all ${total} photos &mdash; <a href="${location.pathname}">view highlights</a>`;
+  }
 
   const frag = document.createDocumentFragment();
   photos.forEach((p, i) => {
