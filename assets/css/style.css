@@ -545,8 +545,7 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 0% -2%;
-  transform: translateX(4%) scale(1.07) rotate(4deg);
+  object-position: 50% 22%;
 }
 .gallery-toggle {
   margin-top: 1.4rem;
