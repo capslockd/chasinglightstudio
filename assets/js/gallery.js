@@ -104,9 +104,11 @@
       const a = document.createElement("a");
       a.href = `assets/img/${slug}/full/${p.n}.webp`;
       a.dataset.index = i;
+      a.draggable = false;
       const img = document.createElement("img");
       img.dataset.src = `assets/img/${slug}/thumbs/${p.n}.webp`;
       img.alt = "";
+      img.draggable = false;
       img.style.aspectRatio = `${p.w} / ${p.h}`;
       a.appendChild(img);
       cols[c].appendChild(a);
@@ -150,13 +152,13 @@
 
   // Deter casual "Save Image As" via right-click / drag on the photos.
   grid.addEventListener("contextmenu", (e) => {
-    if (e.target.closest("img")) e.preventDefault();
+    if (e.target.closest("img, a")) e.preventDefault();
   });
   lb.addEventListener("contextmenu", (e) => {
     if (e.target.closest("img")) e.preventDefault();
   });
   grid.addEventListener("dragstart", (e) => {
-    if (e.target.closest("img")) e.preventDefault();
+    if (e.target.closest("img, a")) e.preventDefault();
   });
   lb.addEventListener("dragstart", (e) => {
     if (e.target.closest("img")) e.preventDefault();
