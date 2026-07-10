@@ -148,6 +148,20 @@
     document.body.style.overflow = "";
   }
 
+  // Deter casual "Save Image As" via right-click / drag on the photos.
+  grid.addEventListener("contextmenu", (e) => {
+    if (e.target.closest("img")) e.preventDefault();
+  });
+  lb.addEventListener("contextmenu", (e) => {
+    if (e.target.closest("img")) e.preventDefault();
+  });
+  grid.addEventListener("dragstart", (e) => {
+    if (e.target.closest("img")) e.preventDefault();
+  });
+  lb.addEventListener("dragstart", (e) => {
+    if (e.target.closest("img")) e.preventDefault();
+  });
+
   grid.addEventListener("click", (e) => {
     const a = e.target.closest("a");
     if (!a) return;

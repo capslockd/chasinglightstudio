@@ -504,6 +504,11 @@ a { color: inherit; text-decoration: none; }
 }
 .masonry img.loaded { opacity: 1; }
 .masonry a:hover img { filter: brightness(1.05); }
+.masonry img, .lightbox img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
 
 /* ---------- Password gate ---------- */
 .gate {
