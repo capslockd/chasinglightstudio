@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-// Picks the oldest not-yet-posted photo across all galleries, builds a caption
-// linking back to that gallery's page, and posts it via post.mjs.
+// Picks the oldest not-yet-posted photo across all galleries, asks Claude to look at the
+// photo and write a longer, meaningful caption about that specific moment (not a generic
+// gallery blurb), and posts it via post.mjs.
 // Usage: node social/daily-post.mjs [--dry-run] [--fb-only|--ig-only]
 
 import { execFileSync } from 'node:child_process';
@@ -40,8 +41,14 @@ function listCandidates(galleries) {
   return candidates;
 }
 
-function buildCaption(gallery) {
-  return `${gallery.title} 📸\n\nSee the full gallery at Chasing Light Studio:\n${gallery.url}`;
+const CLAUDE_BIN = process.env.CLAUDE_BIN || 'claude';
+
+function buildCaptionPrompt(gallery, relPath) {
+  return `You are writing a single Instagram/Facebook caption for Chasing Light Studio, a photography business. Read the photo at "${relPath}" (relative to the repo root, current working directory) and look closely at what's actually happening in it — the people, the setting, the light, the small gestures.
+
+Context: this photo is from the "${gallery.title}" session.
+
+Write a longer, genuinely meaningful caption (3-5 sentences) about this specific photo — what you actually see in the moment, not a generic description of the event type. Warm, personal, observational tone, like a photographer reflecting on why this frame matters. Do NOT end with a call-to-action or invitation to see the gallery — a "see the full gallery" line and link will be appended automatically after your text, so just end on the observation itself. Do not use markdown formatting or wrap the caption in quotation marks. A tasteful emoji or two is fine but don't overdo it. Output ONLY the caption text, nothing else — no preamble, no explanation.`;
 }
 
 async function main() {
@@ -63,10 +70,14 @@ async function main() {
   }
 
   const gallery = galleries[next.slug];
-  const caption = buildCaption(gallery);
   const dryRun = extraArgs.includes('--dry-run');
 
   console.log(`Next photo: ${next.relPath}`);
+
+  const prompt = buildCaptionPrompt(gallery, next.relPath);
+  const captionBody = execFileSync(CLAUDE_BIN, ['-p', prompt], { cwd: ROOT, encoding: 'utf8' }).trim();
+  const caption = `${captionBody}\n\nSee the full gallery at Chasing Light Studio:\n${gallery.url}`;
+
   console.log(`Caption:\n${caption}\n`);
 
   const postArgs = [path.join(ROOT, 'social', 'post.mjs'), next.relPath, '--caption', caption, ...extraArgs];
