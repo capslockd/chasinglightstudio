@@ -1,2 +1,5 @@
 portfolio/
 .DS_Store
+to-post/
+social/.env
+social/daily-post.log
