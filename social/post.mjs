@@ -52,7 +52,7 @@ function slugify(name) {
     .replace(/^-+|-+$/g, '');
 }
 
-async function waitForUrl(url, { timeoutMs = 180_000, intervalMs = 10_000 } = {}) {
+async function waitForUrl(url, { timeoutMs = 1_200_000, intervalMs = 60_000 } = {}) {
   const start = Date.now();
   while (Date.now() - start < timeoutMs) {
     try {
