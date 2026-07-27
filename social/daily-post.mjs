@@ -48,7 +48,11 @@ function buildCaptionPrompt(gallery, relPath) {
 
 Context: this photo is from the "${gallery.title}" session.
 
-Write a longer, genuinely meaningful caption (3-5 sentences) about this specific photo — what you actually see in the moment, not a generic description of the event type. Warm, personal, observational tone, like a photographer reflecting on why this frame matters. Do NOT end with a call-to-action or invitation to see the gallery — a "see the full gallery" line and link will be appended automatically after your text, so just end on the observation itself. Do not use markdown formatting or wrap the caption in quotation marks. A tasteful emoji or two is fine but don't overdo it. Output ONLY the caption text, nothing else — no preamble, no explanation.`;
+Write a longer, genuinely meaningful caption (3-5 sentences) about this specific photo — what you actually see in the moment, not a generic description of the event type. Warm, personal, observational tone, like a photographer reflecting on why this frame matters.
+
+IMPORTANT: Do not name or assume the identity of anyone in the photo — you cannot actually tell who is who from a filename or gallery title, so never guess whose birthday it is, which person is "the couple," which face belongs to the client, etc. Refer to people generically and by what you can actually observe (e.g. "the birthday girl," "a guest," "the two of them," "the group") rather than by name or assumed relationship, unless a name is explicitly given to you in this prompt (none is here).
+
+Do NOT end with a call-to-action or invitation to see the gallery — a "see the full gallery" line and link will be appended automatically after your text, so just end on the observation itself. Do not use markdown formatting or wrap the caption in quotation marks. A tasteful emoji or two is fine but don't overdo it. Output ONLY the caption text, nothing else — no preamble, no explanation.`;
 }
 
 async function main() {
