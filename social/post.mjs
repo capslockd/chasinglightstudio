@@ -80,6 +80,30 @@ async function graphPost(pathSegment, params) {
   return json;
 }
 
+async function graphGet(pathSegment, params) {
+  const url = `https://graph.facebook.com/${GRAPH_VERSION}/${pathSegment}?${new URLSearchParams(params)}`;
+  const res = await fetch(url);
+  const json = await res.json();
+  if (!res.ok || json.error) {
+    throw new Error(`Graph API error on ${pathSegment}: ${JSON.stringify(json.error ?? json)}`);
+  }
+  return json;
+}
+
+// Instagram processes the media container asynchronously after creation (downloading and
+// validating the image) — publishing before it reports FINISHED fails with "Media ID is not
+// available" (code 9007). Poll status_code until it's ready.
+async function waitForContainerReady(containerId, accessToken, { timeoutMs = 120_000, intervalMs = 5_000 } = {}) {
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    const { status_code } = await graphGet(containerId, { fields: 'status_code', access_token: accessToken });
+    if (status_code === 'FINISHED') return;
+    if (status_code === 'ERROR') throw new Error(`Instagram media container ${containerId} failed processing (status_code=ERROR)`);
+    await new Promise((r) => setTimeout(r, intervalMs));
+  }
+  throw new Error(`Timed out waiting for Instagram media container ${containerId} to finish processing.`);
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const photoArg = args._[0];
@@ -147,6 +171,26 @@ async function main() {
     console.log('--no-push: assuming the image is already live at the public URL.');
   }
 
+  // Instagram is the flakier step (async processing, transient fetch errors) — run it before
+  // Facebook so a failure aborts the run before Facebook posts, instead of after (which would
+  // leave a live Facebook post behind on every retry of the same product).
+  if (!args.fbOnly) {
+    console.log('Creating Instagram media container...');
+    const container = await graphPost(`${env.IG_USER_ID}/media`, {
+      image_url: publicUrl,
+      caption,
+      access_token: env.FB_PAGE_ACCESS_TOKEN,
+    });
+    console.log('Waiting for Instagram to finish processing the media container...');
+    await waitForContainerReady(container.id, env.FB_PAGE_ACCESS_TOKEN);
+    console.log('Publishing to Instagram...');
+    const published = await graphPost(`${env.IG_USER_ID}/media_publish`, {
+      creation_id: container.id,
+      access_token: env.FB_PAGE_ACCESS_TOKEN,
+    });
+    console.log(`Instagram post created: id=${published.id}`);
+  }
+
   if (!args.igOnly) {
     console.log('Posting to Facebook Page...');
     const fb = await graphPost(`${env.FB_PAGE_ID}/photos`, {
@@ -155,21 +199,6 @@ async function main() {
       access_token: env.FB_PAGE_ACCESS_TOKEN,
     });
     console.log(`Facebook post created: id=${fb.post_id ?? fb.id}`);
-  }
-
-  if (!args.fbOnly) {
-    console.log('Creating Instagram media container...');
-    const container = await graphPost(`${env.IG_USER_ID}/media`, {
-      image_url: publicUrl,
-      caption,
-      access_token: env.FB_PAGE_ACCESS_TOKEN,
-    });
-    console.log('Publishing to Instagram...');
-    const published = await graphPost(`${env.IG_USER_ID}/media_publish`, {
-      creation_id: container.id,
-      access_token: env.FB_PAGE_ACCESS_TOKEN,
-    });
-    console.log(`Instagram post created: id=${published.id}`);
   }
 
   console.log('Done.');
