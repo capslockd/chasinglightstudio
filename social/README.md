@@ -40,3 +40,72 @@ This picks the oldest photo (by file modified time) across every gallery listed 
 - Once every photo in every configured gallery has been posted, the script exits with an error rather than repeating — add photos to a gallery or a new gallery entry to keep the cycle going.
 
 This is the script a scheduled daily routine should invoke.
+
+## Scheduling (launchd)
+
+The daily run is a per-user `launchd` LaunchAgent (macOS's cron equivalent), not a cron job:
+
+- Plist: `~/Library/LaunchAgents/com.chasinglightstudio.dailypost.plist`
+- Runs `node social/daily-post.mjs` once a day (see `<StartCalendarInterval>` in the plist for the
+  exact hour).
+- Logs (stdout **and** stderr, combined): `social/daily-post.log` — this file just keeps growing,
+  it's never rotated automatically.
+
+### Checking status
+
+```
+launchctl list | grep chasinglightstudio
+```
+
+The middle column is the **last exit code**. `0` = last run succeeded. Anything else means the
+last run failed — check the tail of `social/daily-post.log` for what happened.
+
+### Triggering a run right now (don't wait for the schedule)
+
+```
+launchctl kickstart -k gui/$(id -u)/com.chasinglightstudio.dailypost
+```
+
+Or just run it directly (recommended while debugging, since you see output live and can pass
+`--dry-run`):
+
+```
+cd /Users/bren/Documents/Workspace/chasinglightstudio
+node social/daily-post.mjs --dry-run
+```
+
+### Restarting after editing the plist
+
+launchd caches the loaded job definition — editing the `.plist` file alone does nothing until you
+reload it:
+
+```
+launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.chasinglightstudio.dailypost.plist
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.chasinglightstudio.dailypost.plist
+```
+
+### If the job is failing
+
+1. **Read the log first**: `tail -n 60 social/daily-post.log`. The script fails loudly — the
+   failing command and its error get printed.
+2. **`Not logged in · Please run /login`** from the `claude -p` step: the `claude` CLI reads its
+   stored credentials from the macOS login keychain, and that lookup needs the `USER` (and
+   `LOGNAME`/`HOME`) environment variable to be set — a bare `launchd` job doesn't always inherit
+   these the way an interactive shell does. Confirm the plist's `EnvironmentVariables` dict
+   includes `PATH`, `USER`, `LOGNAME`, and `HOME`, not just `PATH`. If it's genuinely logged out
+   (rare — check by running `claude -p "hi"` in a normal terminal), run `claude /login` once
+   interactively; the credential it stores in the keychain is what the background job reuses.
+3. **Instagram/Facebook API errors** (from the `post.mjs` step, e.g. media container timeouts):
+   usually transient — the script exits non-zero and does **not** mark the photo as posted, so the
+   next scheduled run (or a manual rerun) retries the same photo automatically. No cleanup needed.
+4. **Stuck repeatedly failing on the same photo**: since `social/posted.json` is only updated
+   after a fully successful post, a genuinely broken photo (corrupt file, API rejecting the
+   content) will retry forever and block every photo after it. To skip it, manually add its path
+   to `social/posted.json` and commit — the picker will move on to the next unposted photo.
+5. **Sanity-check the exact environment the job runs in** (catches env-var issues like #2 without
+   waiting for the schedule):
+   ```
+   env -i PATH="/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/bren/.local/bin" \
+     USER="$USER" LOGNAME="$LOGNAME" HOME="$HOME" \
+     node social/daily-post.mjs --dry-run
+   ```
