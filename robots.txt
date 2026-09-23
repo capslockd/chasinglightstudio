@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+# design-tool exports kept in the repo; not pages of the site
+Disallow: /Chasing%20Light%20Studio%20Logo/
 
 Sitemap: https://chasinglightstudios.com.au/sitemap.xml

@@ -132,12 +132,14 @@ a { color: inherit; text-decoration: none; }
   opacity: 0;
   animation: heroFade 36s infinite;
 }
-.hero-slide:nth-child(1) { animation-delay: 0s; }
-.hero-slide:nth-child(2) { animation-delay: 6s; }
-.hero-slide:nth-child(3) { animation-delay: 12s; }
-.hero-slide:nth-child(4) { animation-delay: 18s; }
-.hero-slide:nth-child(5) { animation-delay: 24s; }
-.hero-slide:nth-child(6) { animation-delay: 30s; }
+/* Every delay is shifted 1.08s earlier (3% of the 36s cycle) so the first photo is
+   already fully shown on arrival instead of fading in from blank; the loop is unchanged. */
+.hero-slide:nth-child(1) { animation-delay: -1.08s; }
+.hero-slide:nth-child(2) { animation-delay: 4.92s; }
+.hero-slide:nth-child(3) { animation-delay: 10.92s; }
+.hero-slide:nth-child(4) { animation-delay: 16.92s; }
+.hero-slide:nth-child(5) { animation-delay: 22.92s; }
+.hero-slide:nth-child(6) { animation-delay: 28.92s; }
 @keyframes heroFade {
   0%        { opacity: 0; }
   3%, 16.7% { opacity: 1; }
@@ -393,6 +395,8 @@ a { color: inherit; text-decoration: none; }
 }
 .section-soft { background: var(--bg-soft); }
 .section-soft-full { background: var(--bg-soft); }
+/* each page's heading is an h1 (for search engines); it looks the same as the section h2s */
+.section h1,
 .section h2 {
   font-family: var(--serif);
   font-weight: 500;
@@ -412,6 +416,7 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-light);
   font-size: 1.02rem;
 }
+.section p.lede-follow { margin-top: 1rem; }
 
 /* ---------- Session cards ---------- */
 .session-grid {
@@ -487,7 +492,21 @@ a { color: inherit; text-decoration: none; }
   padding: 0 10px 10px;
   max-width: 1500px;
   margin: 0 auto;
+  /* reserve room while gallery.js loads, so the footer isn't pushed down (layout shift) */
+  min-height: 100vh;
 }
+/* no-JavaScript fallback (inside <noscript>): the highlights as a simple column layout */
+.gallery-static { columns: 280px; column-gap: 10px; width: 100%; }
+.gallery-static a { break-inside: avoid; }
+.masonry .gallery-static img { opacity: 1; height: auto; }
+.gallery-next { padding-top: 3rem; padding-bottom: 0; }
+.gallery-more {
+  margin-top: 1.6rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.gallery-more a { color: var(--accent); border-bottom: 1px solid var(--accent-soft); }
 .masonry-col {
   flex: 1;
   min-width: 0;

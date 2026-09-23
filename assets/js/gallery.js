@@ -6,6 +6,10 @@
   const grid = document.getElementById("gallery");
   if (!grid) return;
   const slug = grid.dataset.slug;
+  // Session name for image alt text ("Ben & Ola's Wedding — photo 3 of 14").
+  const heading = document.querySelector("h1");
+  const sessionName = heading ? heading.textContent.trim() : document.title;
+  const altFor = (i, n) => `${sessionName} — photo ${i + 1} of ${n}`;
 
   // ---------- Password gate (client-side; keeps casual visitors out) ----------
   const gateHash = grid.dataset.protect;
@@ -107,7 +111,7 @@
       a.draggable = false;
       const img = document.createElement("img");
       img.dataset.src = `assets/img/${slug}/thumbs/${p.n}.webp`;
-      img.alt = "";
+      img.alt = altFor(i, photos.length);
       img.draggable = false;
       img.style.aspectRatio = `${p.w} / ${p.h}`;
       a.appendChild(img);
@@ -140,6 +144,7 @@
   function show(i) {
     current = (i + photos.length) % photos.length;
     lbImg.src = `assets/img/${slug}/full/${photos[current].n}.webp`;
+    lbImg.alt = altFor(current, photos.length);
     lbCount.textContent = `${current + 1} / ${photos.length}`;
     lb.classList.add("open");
     document.body.style.overflow = "hidden";
