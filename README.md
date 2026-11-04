@@ -8,6 +8,12 @@ Static photography portfolio site, hosted on GitHub Pages.
 - `assets/img/<session>/{thumbs,full}/` — optimized WebP images (640px / 1600px)
 - `assets/data/<session>.json` — photo manifest used by `assets/js/gallery.js`
 - `portfolio/` — original JPGs (gitignored, never pushed)
+- `pricing.html` — sessions, prices and the booking request form. **Prices live only in its package
+  lists**: `assets/js/pricing.js` reads them to fill the form's "Length" menu and the OfferCatalog
+  structured data. If a "from" price changes, also update the page's `<title>` and meta description.
+- `apps-script/` — the Google Apps Script that saves booking requests to a Google Sheet, and how to set
+  it up (`apps-script/README.md`). Until its URL is pasted into `BOOKING_SHEET_URL` in
+  `assets/js/pricing.js`, the form opens a pre-filled email to moments@chasinglightstudios.com.au.
 
 ## Adding a new session
 1. Drop original JPGs into `portfolio/<Session Name>/`
