@@ -238,7 +238,11 @@ const BOOKING_EMAIL = "moments@chasinglightstudios.com.au";
       show("ok",
         `<p>Thank you, ${firstName(d.name)} — your booking request is with me.</p>` +
         `<p>I'll be in touch by ${how(d)} to check the date and confirm the details. ` +
-        `Nothing is booked until we've spoken.</p>`);
+        `Nothing is booked until we've spoken.</p>` +
+        (out.receipt
+          ? `<p>A copy of your request is on its way to <strong>${esc(d.email)}</strong>. ` +
+            `If it isn't there in a few minutes, check your junk folder.</p>`
+          : ""));
     } catch (err) {
       show("error",
         `<p>Sorry — your request didn't send. Everything you typed is still here, so you can try again.</p>` +
