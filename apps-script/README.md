@@ -16,16 +16,18 @@ Setting it up takes about ten minutes, and you only do it once.
 1. In the sheet: **Extensions → Apps Script**.
 2. Delete the placeholder `function myFunction() {}`.
 3. Paste in the whole of [`Code.gs`](Code.gs) from this folder, then press **Save** (the disk icon).
-4. Optional: near the top, `NOTIFY_EMAIL` is the address that gets an email for every new
-   request. It is set to moments@chasinglightstudios.com.au. Change it, or set it to `''`
-   to turn the emails off.
+4. Optional: every new request is emailed to the Google account that owns the script.
+   To turn the emails off, change `const NOTIFY = true;` near the top to `false`.
+   It sends to your own Gmail rather than to moments@, because moments@ forwards back to
+   that same Gmail, and Gmail hides forwarded copies of mail it sent itself.
 
 ## 3. Authorise it, and test it once
 
 1. In the function menu at the top of the editor, choose **testSetup**, then press **Run**.
 2. Google asks for permission. Choose your account, then **Advanced → Go to … (unsafe)**
    (it says "unsafe" only because you wrote the script, not Google), then **Allow**.
-   It asks to edit this spreadsheet and to send email as you (for the notification email).
+   It asks to edit this spreadsheet, to send email as you and to see your email address
+   (both for the notification email).
 3. Go back to the sheet. There is now a **Booking requests** tab with a header row and
    one test row, and the notification email has arrived. Delete the test row.
 
@@ -57,7 +59,7 @@ Setting it up takes about ten minutes, and you only do it once.
    const BOOKING_SHEET_URL = "https://script.google.com/macros/s/AKfy…/exec";
    ```
 
-3. In `pricing.html`, change `pricing.js?v=3` to `pricing.js?v=4` so visitors' browsers
+3. In `pricing.html`, raise the number in `pricing.js?v=5` by one so visitors' browsers
    pick up the new file.
 4. Publish the change as usual.
 

@@ -1,6 +1,6 @@
 const SHEET_NAME = 'Booking requests';
 
-const NOTIFY_EMAIL = 'moments@chasinglightstudios.com.au';
+const NOTIFY = true;
 
 const COLUMNS = [
   ['Received', 'received'],
@@ -41,7 +41,7 @@ function doPost(e) {
       lock.releaseLock();
     }
 
-    if (NOTIFY_EMAIL) notify_(data);
+    if (NOTIFY) notify_(data);
     return json_({ ok: true });
   } catch (err) {
     console.error(err);
@@ -112,7 +112,7 @@ function notify_(data) {
   const options = {};
   if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) options.replyTo = email;
   MailApp.sendEmail(
-    NOTIFY_EMAIL,
+    Session.getEffectiveUser().getEmail(),
     'Booking request — ' + clean_(data.service) + ' — ' + clean_(data.name),
     lines.join('\n'),
     options
