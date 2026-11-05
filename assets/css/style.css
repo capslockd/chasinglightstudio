@@ -666,6 +666,225 @@ a { color: inherit; text-decoration: none; }
 }
 .contact-detail a { color: var(--accent); border-bottom: 1px solid var(--accent-soft); }
 
+/* ---------- Sessions & Pricing ---------- */
+.section p.lede a { color: var(--accent); border-bottom: 1px solid var(--accent-soft); }
+.pricing-intro { padding-top: 3rem; padding-bottom: 3rem; }
+.section p.contact-pricing { margin-top: 2rem; }
+.service-jump {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 1.4rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.service-jump a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent);
+}
+.service-jump a span { border-bottom: 1px solid var(--accent-soft); }
+.service-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  max-width: 900px;
+  margin: 2rem auto 0;
+  text-align: left;
+}
+.service {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-soft);
+  padding: 1.6rem 1.25rem 1.4rem;
+  scroll-margin-top: 1rem;
+}
+.section .service h2 {
+  font-size: 1.45rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.2rem;
+}
+.service-for { font-size: 0.95rem; }
+.packages {
+  list-style: none;
+  margin-top: 1.1rem;
+  border-top: 1px solid var(--accent-soft);
+}
+.packages li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--accent-soft);
+}
+.pkg-price {
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  font-weight: 500;
+  line-height: 1.2;
+  font-variant-numeric: lining-nums;
+}
+.service-extra { margin-top: 0.9rem; font-size: 0.92rem; }
+.service-delivery { margin-top: 0.5rem; font-size: 0.92rem; }
+.service-extra + .service-delivery { margin-top: 0.2rem; }
+.service-actions { margin-top: auto; padding-top: 1.4rem; text-align: center; }
+.service-actions .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: 0;
+  padding: 0.75rem 1rem;
+}
+.service-gallery {
+  margin-top: 0.4rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.service-gallery a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent);
+}
+.service-gallery a span { border-bottom: 1px solid var(--accent-soft); }
+.pricing-currency { margin-top: 1.6rem; font-size: 0.9rem; }
+
+.includes-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  text-align: left;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.includes-photo { width: 100%; height: auto; }
+.includes { list-style: none; }
+.includes li { padding: 1rem 0; border-bottom: 1px solid var(--accent-soft); }
+.includes li:first-child { padding-top: 0; }
+.includes li:last-child { border-bottom: 0; }
+.includes strong {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+
+/* Booking request form */
+.booking { max-width: 640px; margin: 2rem auto 0; text-align: left; }
+.booking .field { margin-top: 1.3rem; border: 0; min-width: 0; }
+.booking label, .booking legend {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.booking .opt { letter-spacing: 0.04em; text-transform: none; font-weight: 300; }
+.booking .opt[hidden] { display: none; }
+.booking input[type="text"], .booking input[type="email"], .booking input[type="tel"],
+.booking input[type="date"], .booking select, .booking textarea {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #9c8b70;
+  border-radius: 0;
+  background: #fff;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+.booking input[type="date"] { -webkit-appearance: none; appearance: none; }
+.booking select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 2.4rem;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%233d3a36' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right 0.9rem center;
+}
+.booking select:disabled { background-color: var(--bg-soft); color: #6f6a63; }
+.booking textarea { resize: vertical; }
+.booking input:focus-visible, .booking select:focus-visible, .booking textarea:focus-visible,
+.booking button:focus-visible, .service-actions .btn:focus-visible, .service-jump a:focus-visible,
+.service-gallery a:focus-visible, .site-nav a:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+.booking .choices { display: flex; gap: 0.6rem; }
+.booking .choice {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 48px;
+  margin: 0;
+  padding: 0 0.9rem;
+  border: 1px solid #9c8b70;
+  background: #fff;
+  font-size: 1rem;
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 300;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.booking .choice:has(input:checked) { border-color: var(--text); background: var(--bg-soft); }
+.booking .choice input { width: 1.2rem; height: 1.2rem; margin: 0; accent-color: var(--accent); }
+.field-row { display: grid; grid-template-columns: 1fr; gap: 0 1.2rem; }
+.booking .hint { margin-top: 0.35rem; font-size: 0.85rem; }
+.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.booking .privacy { margin-top: 1.6rem; font-size: 0.88rem; }
+button.btn { background: none; font-family: var(--sans); cursor: pointer; }
+.booking .btn {
+  display: block;
+  width: 100%;
+  min-height: 52px;
+  margin-top: 1.2rem;
+  padding: 0.85rem 1rem;
+}
+.booking .btn:disabled { opacity: 0.6; cursor: progress; }
+.form-status {
+  margin-top: 1.4rem;
+  padding: 1rem 1.2rem;
+  border-left: 3px solid var(--accent);
+  background: var(--bg-soft);
+  text-align: left;
+}
+.form-status[hidden] { display: none; }
+.form-status p + p { margin-top: 0.6rem; }
+.form-status a { color: var(--text); border-bottom: 1px solid var(--accent); }
+.form-status.is-error { border-left-color: #9a4a34; }
+.form-status:focus { outline: none; }
+.booking + .form-status { max-width: 640px; margin: 2rem auto 0; }
+
+@media (min-width: 561px) {
+  .pricing-intro { padding-top: 4.5rem; }
+  .field-row { grid-template-columns: 1fr 1fr; }
+  .booking .choices { max-width: 320px; }
+  .booking .btn { display: inline-block; width: auto; padding: 0.85rem 2.6rem; }
+}
+@media (min-width: 700px) {
+  .service-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+  .service { padding: 2rem 1.6rem 1.8rem; }
+  .section .service h2 { font-size: 1.55rem; }
+  .pkg-price { font-size: 1.5rem; }
+}
+@media (min-width: 761px) {
+  .includes-wrap { flex-direction: row; align-items: center; gap: 3rem; }
+  .includes-photo { width: 48%; flex-shrink: 0; }
+  .includes { flex: 1; }
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   border-top: 1px solid var(--accent-soft);
@@ -689,8 +908,22 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 640px) {
-  .wordmark { font-size: 1.9rem; }
-  .site-nav ul { gap: 1.4rem; }
+  .wordmark { font-size: clamp(1.15rem, 6.2vw, 1.9rem); letter-spacing: 0.1em; white-space: nowrap; }
+  .section h1, .section h2 { font-size: 1.65rem; }
+  .site-header { padding: 1.6rem 0.5rem 0; }
+  .logo-mark { width: 36px; margin-bottom: 0.5rem; }
+  .site-nav { margin-top: 1rem; padding: 0; }
+  .site-nav ul { gap: 0; flex-wrap: nowrap; justify-content: space-evenly; }
+  .site-nav a {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 0.3rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .site-footer .socials a { display: inline-flex; align-items: center; min-height: 44px; }
   .hero { height: 52vh; }
   .about-wrap { flex-direction: column; }
   .about-wrap img { width: 100%; }
