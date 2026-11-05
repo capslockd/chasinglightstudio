@@ -145,10 +145,11 @@ function notify_(data) {
   const email = clean_(data.email);
   const subject = 'Booking request — ' + clean_(data.service) + ' — ' + name;
   const html =
+    '<div style="font-family:Georgia,serif;font-size:16px;line-height:1.5;color:#222">' +
     '<p>A new booking request from the website.</p>' +
     table_([['Name', name]].concat(details_(data))) +
     message_(data) +
-    '<p><a href="' + esc_(SpreadsheetApp.getActiveSpreadsheet().getUrl()) + '">Open the sheet</a></p>';
+    '<p><a href="' + esc_(SpreadsheetApp.getActiveSpreadsheet().getUrl()) + '">Open the sheet</a></p></div>';
   const replyTo = isEmail_(email) ? { email: email, name: name } : null;
 
   try {
@@ -163,20 +164,22 @@ function notify_(data) {
 
 function sendReceipt_(data) {
   const name = clean_(data.name);
-  const first = name.split(/\s+/)[0] || name;
-  const how = clean_(data.contact) === 'Phone' ? 'phone' : 'email';
-  const html =
-    '<p>Hi ' + esc_(first) + ',</p>' +
-    '<p>Thank you for your booking request. Here is a copy of what you sent, so you can check the details.</p>' +
-    table_(details_(data)) +
-    message_(data) +
-    '<p>This is a request, not a confirmed booking. I\'ll be in touch by ' + how +
-    ' to check the date and confirm the details. If anything above is wrong, just reply to this email.</p>' +
-    '<p>' + STUDIO_NAME + '<br><a href="' + SITE_URL + '">chasinglightstudios.com.au</a></p>';
+  const date = niceDate_(clean_(data.date));
 
   try {
+    const page = HtmlService.createTemplateFromFile('Receipt');
+    page.first = name.split(/\s+/)[0] || name;
+    page.how = clean_(data.contact) === 'Phone' ? 'phone' : 'email';
+    page.details = details_(data).filter(([, value]) => value && value !== '—');
+    page.message = clean_(data.message);
+    page.preheader = 'A copy of your ' + clean_(data.service) + ' booking request' + (date ? ' for ' + date : '') + '.';
+    page.siteUrl = SITE_URL;
+    page.studioEmail = STUDIO_EMAIL;
+    page.year = new Date().getFullYear();
+
     brevo_({ email: clean_(data.email), name: name },
-      'Your booking request — ' + STUDIO_NAME, html, { email: STUDIO_EMAIL, name: STUDIO_NAME }, 'booking-receipt');
+      'Your booking request — ' + STUDIO_NAME, page.evaluate().getContent(),
+      { email: STUDIO_EMAIL, name: STUDIO_NAME }, 'booking-receipt');
     return true;
   } catch (err) {
     console.error(err);
@@ -191,7 +194,7 @@ function brevo_(to, subject, html, replyTo, tag) {
     sender: { email: STUDIO_EMAIL, name: STUDIO_NAME },
     to: [to],
     subject: subject,
-    htmlContent: '<div style="font-family:Georgia,serif;font-size:16px;line-height:1.5;color:#222">' + html + '</div>',
+    htmlContent: html,
     tags: [tag],
   };
   if (replyTo) payload.replyTo = replyTo;

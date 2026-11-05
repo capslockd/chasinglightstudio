@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>Your booking request</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; padding: 0; }
+  a { color: #3d3a36; }
+  @media (max-width: 480px) {
+    .outer { padding: 0 !important; }
+    .card { padding: 32px 22px !important; }
+    .wordmark { font-size: 21px !important; letter-spacing: 3px !important; }
+    .heading { font-size: 25px !important; }
+    .btn a { display: block !important; }
+  }
+</style>
+</head>
+<body style="margin:0;padding:0;background:#faf8f5;">
+<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;"><?= preheader ?></div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#faf8f5;">
+  <tr>
+    <td class="outer" align="center" style="padding:32px 16px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#ffffff;">
+        <tr>
+          <td class="card" style="padding:44px 48px 40px;font-family:Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:300;font-size:16px;line-height:1.7;color:#3d3a36;">
+
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" style="padding-bottom:22px;border-bottom:1px solid #e8dfd2;">
+                  <a href="<?!= siteUrl ?>" style="text-decoration:none;color:#3d3a36;">
+                    <img src="<?!= siteUrl ?>/assets/img/email/logo-mark.png" width="44" height="44" alt="" style="display:block;margin:0 auto 10px;border:0;">
+                    <span class="wordmark" style="font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-weight:500;font-size:26px;letter-spacing:4px;text-transform:uppercase;color:#3d3a36;">Chasing Light Studio</span>
+                  </a>
+                </td>
+              </tr>
+            </table>
+
+            <p style="margin:34px 0 6px;text-align:center;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#8a857e;">Booking request received</p>
+            <h1 class="heading" style="margin:0;text-align:center;font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-weight:500;font-size:30px;line-height:1.25;letter-spacing:2px;text-transform:uppercase;color:#3d3a36;">Thank you, <?= first ?></h1>
+            <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="margin:16px auto 26px;">
+              <tr><td width="48" height="1" style="width:48px;height:1px;line-height:1px;font-size:0;background:#b89b6e;">&nbsp;</td></tr>
+            </table>
+
+            <p style="margin:0 0 24px;text-align:center;color:#8a857e;">Here is a copy of your booking request, so you can check the details.</p>
+
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#faf8f5;border-left:3px solid #b89b6e;">
+              <tr>
+                <td style="padding:8px 22px 10px;">
+                  <? for (var i = 0; i < details.length; i++) { ?>
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td style="padding:12px 0;<?!= i < details.length - 1 ? 'border-bottom:1px solid #e8dfd2;' : '' ?>">
+                        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8a857e;line-height:1.5;"><?= details[i][0] ?></div>
+                        <div style="font-size:16px;color:#3d3a36;line-height:1.5;margin-top:2px;"><?= details[i][1] ?></div>
+                      </td>
+                    </tr>
+                  </table>
+                  <? } ?>
+                </td>
+              </tr>
+            </table>
+
+            <? if (message) { ?>
+            <p style="margin:26px 0 4px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8a857e;">Your message</p>
+            <p style="margin:0;white-space:pre-wrap;"><?= message ?></p>
+            <? } ?>
+
+            <h2 style="margin:36px 0 10px;font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-weight:500;font-size:21px;letter-spacing:2px;text-transform:uppercase;color:#3d3a36;">What happens next</h2>
+            <p style="margin:0 0 12px;">This is a request, not a confirmed booking. I'll be in touch by <?= how ?> to check the date and confirm the details. Nothing is booked until we've spoken.</p>
+            <p style="margin:0;">If anything above isn't right, just reply to this email.</p>
+
+            <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="margin:34px auto 6px;">
+              <tr>
+                <td class="btn" align="center" style="border:1px solid #b89b6e;">
+                  <a href="<?!= siteUrl ?>/pricing" style="display:inline-block;padding:14px 36px;font-family:Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:#b89b6e;text-decoration:none;">Sessions &amp; pricing</a>
+                </td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="padding:26px 24px 30px;border-top:1px solid #e8dfd2;font-family:Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:300;color:#8a857e;">
+            <p style="margin:0 0 10px;font-size:12px;letter-spacing:3px;text-transform:uppercase;">
+              <a href="https://www.instagram.com/brensphotography/" style="color:#8a857e;text-decoration:none;margin:0 10px;">Instagram</a>
+              <a href="https://www.facebook.com/BrensPhoto" style="color:#8a857e;text-decoration:none;margin:0 10px;">Facebook</a>
+            </p>
+            <p style="margin:0 0 10px;font-size:13px;">
+              <a href="mailto:<?!= studioEmail ?>" style="color:#8a857e;"><?!= studioEmail ?></a>
+            </p>
+            <p style="margin:0;font-size:11px;line-height:1.6;letter-spacing:0.5px;">You're receiving this because a booking request was sent with this address at chasinglightstudios.com.au.<br>&copy; <?= year ?> Chasing Light Studio</p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

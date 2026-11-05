@@ -44,14 +44,18 @@ in, addressed to moments@chasinglightstudios.com.au.
 1. In the sheet: **Extensions → Apps Script**.
 2. Delete the placeholder `function myFunction() {}`.
 3. Paste in the whole of [`Code.gs`](Code.gs) from this folder, then press **Save** (the disk icon).
-4. Open **Project Settings** (the gear on the left), go to **Script Properties**, and choose
+4. Add the client's receipt design. Next to **Files**, press **+**, choose **HTML**, and
+   name it `Receipt`. Apps Script adds the `.html` itself. Replace its contents with the
+   whole of [`Receipt.html`](Receipt.html), then **Save**. Its logo is loaded from the
+   website (`assets/img/email/logo-mark.png`).
+5. Open **Project Settings** (the gear on the left), go to **Script Properties**, and choose
    **Add script property**. Set:
    - **Property:** `BREVO_API_KEY`
    - **Value:** the key from Brevo
 
    Then press **Save script properties**. Keep the key here only. Never paste it into
    `Code.gs` or this repository, because they are public.
-5. Optional, near the top of `Code.gs`:
+6. Optional, near the top of `Code.gs`:
    - `NOTIFY = false` turns off your notification email.
    - `SEND_RECEIPT = false` turns off the client's copy.
 
@@ -70,7 +74,8 @@ in, addressed to moments@chasinglightstudios.com.au.
    would get (the test addresses it to moments@). Delete the test row.
 4. If the emails don't come, open **Executions** in the Apps Script editor. A line such as
    `Brevo 401` means the API key is wrong. `Brevo 400 … sender` means the sender or domain
-   isn't verified yet.
+   isn't verified yet. `No HTML file named Receipt` means the receipt file in step 3.4 is
+   missing or named differently.
 
 ## 5. Deploy it as a web app
 
@@ -117,7 +122,7 @@ all of these:
 
 ## Good to know
 
-- **Changing the script later:** after editing `Code.gs`, use **Deploy → Manage deployments
+- **Changing the script later:** after editing `Code.gs` or `Receipt`, use **Deploy → Manage deployments
   → (pencil) → Version: New version → Deploy**. That keeps the same URL. Choosing *New
   deployment* again creates a *different* URL, and the website would still be sending to
   the old one.
