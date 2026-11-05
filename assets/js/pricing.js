@@ -1,5 +1,5 @@
 /* Sessions & Pricing */
-const BOOKING_SHEET_URL = "";
+const BOOKING_SHEET_URL = "https://docs.google.com/spreadsheets/d/1LH3NLiWGeERJPJHJWX_e3aDYyteYiR3WfvkXuduGo-k/edit?gid=1452185008#gid=1452185008";
 const BOOKING_EMAIL = "moments@chasinglightstudios.com.au";
 
 (function () {
