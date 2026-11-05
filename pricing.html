@@ -196,10 +196,11 @@
   <p class="lede">Tell me a little about what you have in mind. This is a booking request, not a confirmed booking — I'll get back to you by email or phone, whichever you prefer, to check the date and confirm the details with you.</p>
 
   <noscript>
+    <style>#booking-form { display: none; }</style>
     <p class="lede lede-follow">The form below needs JavaScript to send. You can also email me at <a href="mailto:moments@chasinglightstudios.com.au">moments@chasinglightstudios.com.au</a> with your date, the session you'd like and your suburb.</p>
   </noscript>
 
-  <form class="booking" id="booking-form" action="mailto:moments@chasinglightstudios.com.au?subject=Booking%20request" method="post" enctype="text/plain">
+  <form class="booking" id="booking-form">
     <div class="field">
       <label for="bk-name">Your name</label>
       <input id="bk-name" name="name" type="text" autocomplete="name" required maxlength="120">
@@ -288,6 +289,6 @@
   <small>&copy; 2026 Chasing Light Studio. All rights reserved.</small>
 </footer>
 
-<script src="assets/js/pricing.js?v=2"></script>
+<script src="assets/js/pricing.js?v=3"></script>
 </body>
 </html>

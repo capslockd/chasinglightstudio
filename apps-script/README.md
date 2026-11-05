@@ -57,7 +57,7 @@ Setting it up takes about ten minutes, and you only do it once.
    const BOOKING_SHEET_URL = "https://script.google.com/macros/s/AKfy…/exec";
    ```
 
-3. In `pricing.html`, change `pricing.js?v=2` to `pricing.js?v=3` so visitors' browsers
+3. In `pricing.html`, change `pricing.js?v=3` to `pricing.js?v=4` so visitors' browsers
    pick up the new file.
 4. Publish the change as usual.
 

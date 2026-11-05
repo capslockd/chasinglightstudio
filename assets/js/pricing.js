@@ -84,9 +84,6 @@ const BOOKING_EMAIL = "moments@chasinglightstudios.com.au";
     Phone: $("bk-phone"),
   };
 
-  form.removeAttribute("action");
-  form.removeAttribute("enctype");
-
   // Preferred date
   const now = new Date();
   const pad = (n) => String(n).padStart(2, "0");
