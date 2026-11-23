@@ -844,6 +844,7 @@ a { color: inherit; text-decoration: none; }
 .booking .hint { margin-top: 0.35rem; font-size: 0.85rem; }
 .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .booking .privacy { margin-top: 1.6rem; font-size: 0.88rem; }
+.booking .privacy a { color: var(--accent); border-bottom: 1px solid var(--accent-soft); }
 button.btn { background: none; font-family: var(--sans); cursor: pointer; }
 .booking .btn {
   display: block;
@@ -906,6 +907,42 @@ button.btn { background: none; font-family: var(--sans); cursor: pointer; }
   font-size: 0.75rem;
   letter-spacing: 0.1em;
 }
+.site-footer .legal-links { margin-top: 0.5rem; }
+.site-footer .legal-links a {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0.7rem;
+  color: var(--text-light);
+}
+.site-footer .legal-links a:hover { color: var(--accent); }
+
+/* ---------- Privacy & terms ---------- */
+.legal {
+  max-width: 680px;
+  margin: 3rem auto 0;
+  text-align: left;
+}
+.legal h2 {
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+  margin: 2.4rem 0 0.6rem;
+}
+.legal p, .legal li { font-size: 1rem; }
+.legal p + p { margin-top: 0.9rem; }
+.legal ul { margin: 0.6rem 0 0.9rem 1.2rem; }
+.legal li { margin-bottom: 0.5rem; }
+.legal li::marker { color: var(--accent); }
+.legal strong { font-weight: 400; }
+.legal a { color: var(--accent); border-bottom: 1px solid var(--accent-soft); }
+.legal .legal-updated {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 1.4rem;
+}
+.legal .legal-see-also { margin-top: 2.4rem; color: var(--text-light); }
 
 @media (max-width: 640px) {
   .wordmark { font-size: clamp(1.15rem, 6.2vw, 1.9rem); letter-spacing: 0.1em; white-space: nowrap; }
@@ -923,7 +960,10 @@ button.btn { background: none; font-family: var(--sans); cursor: pointer; }
     letter-spacing: 0.08em;
     -webkit-tap-highlight-color: transparent;
   }
-  .site-footer .socials a { display: inline-flex; align-items: center; min-height: 44px; }
+  .site-footer .socials a,
+  .site-footer .legal-links a { display: inline-flex; align-items: center; min-height: 44px; }
+  .legal { margin-top: 2rem; }
+  .legal h2 { font-size: 1.2rem; }
   .hero { height: 52vh; }
   .about-wrap { flex-direction: column; }
   .about-wrap img { width: 100%; }
